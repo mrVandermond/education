@@ -20,5 +20,8 @@ while abs(interval[0] - interval[1]) >= eps:
     
     print('интервал ', round(interval[0], 3), '\t', round(interval[1], 3))
 
-ans = f((interval[0] + interval[1]) / 2)
-print(ans)
+ans = (interval[0] + interval[1]) / 2
+ansfunc = f(ans)
+print('Ответ:')
+print('x* = ', ans)
+print('f(x*) = ', ansfunc)
