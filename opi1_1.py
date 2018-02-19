@@ -28,6 +28,8 @@ while abs(interval[0] - interval[1]) >= eps:
         interval[0] = yk
         yk = zk
         zk = interval[0] + interval[1] - zk
+
+    print('Интервал ', round(interval[0], 4), '\t', round(interval[1], 4))
         
 ans = (interval[0] + interval[1]) / 2
 ansfunc = f(ans)

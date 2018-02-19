@@ -44,11 +44,15 @@ while abs(interval[0] - interval[1]) > eps:
         yk = zk
         zk = interval[0] + (F[-count - 3] / F[-count - 2]) * (interval[1] - interval[0])
 
-    count += 1 
+    count += 1
+    print('Интервал ', round(interval[0], 4), '\t', round(interval[1], 4))
     if count == (len(F) - 3):
         yn_2 = zn_2 = (interval[0] + interval[1]) / 2
         yn_1 = yn_2
         zn_1 = yn_1 + delta
+
+        print('yk = ', round(yn_1, 4))
+        print('zk = ', round(zn_1, 4))
 
         fyn_1 = f(yn_1)
         fzn_1 = f(zn_1)
@@ -60,6 +64,7 @@ while abs(interval[0] - interval[1]) > eps:
         else:
             interval[0] = yn_1
 
+        print('Интервал ', round(interval[0], 4), '\t', round(interval[1], 4))
         break
 
 ans = (interval[0] + interval[1]) / 2
