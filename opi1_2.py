@@ -2,9 +2,16 @@
 
 import math
 
-delta = 0.2
-eps = 0.5
-interval = [-6, 4]
+delta = float(input())
+eps = float(input())
+
+interval = []
+
+a = int(input())
+interval.append(a)
+a = int(input())
+interval.append(a)
+
 def f(x):
     return x ** 2 + 6 * x + 13
 
@@ -72,3 +79,4 @@ ansfunc = f(ans)
 print('Ответ:')
 print('x* = ', ans)
 print('f(x*) = ', ansfunc)
+print('Количепство итераций ', count)

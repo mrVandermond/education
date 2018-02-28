@@ -1,11 +1,19 @@
 #method dixotomii
 
-delta = 0.2
-eps = 0.5
-interval = [-6, 4]
+delta = float(input())
+eps = float(input())
+
+interval = []
+
+a = int(input())
+interval.append(a)
+a = int(input())
+interval.append(a)
+
 def f(x):
     return x ** 2 + 6 * x + 13
 
+count = 0
 while abs(interval[0] - interval[1]) >= eps:
     mid = (interval[0] + interval[1]) / 2
     x1 = f(mid - delta)
@@ -19,9 +27,11 @@ while abs(interval[0] - interval[1]) >= eps:
         interval[0] = mid - delta
     
     print('интервал ', round(interval[0], 3), '\t', round(interval[1], 3))
+    count += 1
 
 ans = (interval[0] + interval[1]) / 2
 ansfunc = f(ans)
 print('Ответ:')
 print('x* = ', ans)
 print('f(x*) = ', ansfunc)
+print('Количество итераций ', count)
