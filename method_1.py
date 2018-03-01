@@ -1,32 +1,39 @@
 import random
+eps = 1E-10
 
-delta = 1E-5
-eps = 1E-7
-#matr = [[17, 6], [6, 8]]
-#matr = [[3, 4], [4, 3]]
-#matr = [[4, 1, -1], [1, 4, -1], [-1, -1, 4]]
-matr = [[-1 ,-6], [2, 6]]
-y_0 = []
-x_0 = []
-x_k = []
-norm_y0 = 0
+###Ввод###
 
-####Разложение матрицы###
+# matr = [[17, 6], [6, 8]]
+# dim = 2
+# sigma = 19.9
 
-N = len(matr)
+fname = open('input.txt', 'r')
 
+dim = int(fname.readline())
+sigma = int(fname.readline())
+matr = [string.split() for string in fname]
+
+for i in range(len(matr)):
+    matr[i] = [int(x) for x in matr[i]]
+
+###Построение матрицы с приближением###
+
+for i in range(dim):
+    matr[i][i] -= sigma
+
+###Разложение матрицы###
 U = []
 L = []
 
-for i in range(N):
+for i in range(dim):
     U.append([])
     L.append([])
-    for j in range(N):
+    for j in range(dim):
         U[-1].append(0)
         L[-1].append(0)
 
-for i in range(N):
-    for j in range(N):
+for i in range(dim):
+    for j in range(dim):
         if j >= i:
             temp = 0
             if (i - 1) >= 0:
@@ -40,66 +47,59 @@ for i in range(N):
                     temp += L[i][k] * U[k][j]
             L[i][j] = (matr[i][j] - temp) / U[j][j]
 
-for i in range(N):
+for i in range(dim):
     L[i][i] = 1
 
 #########################
 
-for i in range(len(matr)):
-    y_0.append(random.uniform(-5000, 5000))
-
-norm_y0 = abs(max(y_0, key=abs))
-x_0 = [y_0[i] / norm_y0 for i in range(len(y_0))]
+###Начало итераций###
+x_0 = []
+for i in range(dim):
+    x_0.append(1)
 
 x_k = x_0
-y_k = y_0
-count_iter = 0
-lam_k = 0
-lam_0 = random.uniform(-5000, 5000)
+lam_k_1 = random.uniform(-300, 300)
+count = 0
 while True:
-
+    
     ###Решение системы обратной итерации###
-
-    temp_x_k = []
-    for i in range(len(matr)):
+    y = []
+    for i in range(dim):
         temp = 0
         if (i - 1) >= 0:
             for k in range(i):
-                temp += L[i][k] * y_k[k]
-        temp_x_k.append(y_k[i] - temp)
-    
-    iterC = len(matr) - 1
+                temp += L[i][k] * y[k]
+        y.append(x_k[i] - temp)
+
+    iterC = dim - 1
+    x = []
     while iterC >= 0:
         temp = 0
-        for k in range(iterC + 1, len(matr)):
-            temp += U[iterC][k] * temp_x_k[k]
-        y_k[iterC] = (temp_x_k[iterC] - temp) / U[iterC][iterC]
+        for k in range(iterC + 1, dim):
+            temp += U[iterC][k] * x[-k]
+        x.append((y[iterC] - temp) * 1.0 / U[iterC][iterC])
         iterC -= 1
-
-    #######################################
-    # for i in range(len(matr)):
-    #     temp = 0
-    #     for j in range(len(matr)):
-    #         temp += (matr[i][j] * x_k[j])
-    #     y_k.append(temp)
     
-    count = 0
-    temp = 0
-    for i in range(len(matr)):
-        if abs(x_k[i]) > delta:
-            temp += y_k[i] / x_k[i]
-            count += 1
-    lam_k = temp / count
-    
-    norm_yk = abs(max(y_k, key=abs))
-    x_k = [y_k[i] / norm_yk for i in range(len(matr))]
+    #########################################
+    x.reverse()
+    y_k = x
+    norm_y = max(y_k, key=abs)
 
-    if abs(lam_k - lam_0) < eps:
+    middle_val = 0
+    for i in range(dim):
+        middle_val += x_k[i] * 1.0 / y_k[i]
+
+    middle_val /= dim
+    lam_k = sigma + middle_val
+
+    x_k = [elem / norm_y for elem in y_k]
+
+    if abs(lam_k - lam_k_1) < eps:
         break
     else:
-        lam_0 = lam_k
-        count_iter += 1
+        lam_k_1 = lam_k
+        count += 1
 
-print(lam_k)
 print(x_k)
-print(count_iter)
+print(lam_k)
+print(count)
