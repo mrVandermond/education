@@ -1,11 +1,14 @@
 import random
+import math
 
 delta = 1E-5
 eps = 1E-7
 #matr = [[17, 6], [6, 8]]
 #matr = [[3, 4], [4, 3]]
 #matr = [[4, 1, -1], [1, 4, -1], [-1, -1, 4]]
-matr = [[-1 ,-6], [2, 6]]
+#matr = [[-1 ,-6], [2, 6]]
+#matr = [[1, 0, 0], [0, 2, 0], [0, 0, 3]]
+matr = [[-3, 4, -2], [1, 0, 1], [6, -6, 5]]
 y_0 = []
 x_0 = []
 x_k = []
@@ -46,6 +49,7 @@ while True:
         lam_0 = lam_k
         count_iter += 1
 
-print(lam_k)
+print(round(lam_k, 4))
+x_k  = [round(x, 4) for x in x_k]
 print(x_k)
 print(count_iter)
