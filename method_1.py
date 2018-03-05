@@ -1,20 +1,22 @@
 import random
-eps = 1E-10
+eps = 1E-5
 
 ###Ввод###
 
-# matr = [[17, 6], [6, 8]]
-# dim = 2
-# sigma = 19.9
+matr = [[-3, 4, -2], [1, 0, 1], [6, -6, 5]]
+dim = 3
+sigma = 2.1
 
-fname = open('input.txt', 'r')
+#fname = open('input.txt', 'r')
+#fname = open('input2.txt', 'r')
+#fname = open('input3.txt', 'r')
 
-dim = int(fname.readline())
-sigma = int(fname.readline())
-matr = [string.split() for string in fname]
+# dim = int(fname.readline())
+# sigma = float(fname.readline())
+# matr = [string.split() for string in fname]
 
 for i in range(len(matr)):
-    matr[i] = [int(x) for x in matr[i]]
+    matr[i] = [float(x) for x in matr[i]]
 
 ###Построение матрицы с приближением###
 
@@ -50,6 +52,8 @@ for i in range(dim):
 for i in range(dim):
     L[i][i] = 1
 
+print(L)
+print(U)
 #########################
 
 ###Начало итераций###
@@ -76,30 +80,37 @@ while True:
     while iterC >= 0:
         temp = 0
         for k in range(iterC + 1, dim):
-            temp += U[iterC][k] * x[-k]
+            temp += U[iterC][k] * x[dim - k - 1]
         x.append((y[iterC] - temp) * 1.0 / U[iterC][iterC])
         iterC -= 1
     
     #########################################
     x.reverse()
     y_k = x
-    norm_y = max(y_k, key=abs)
+    norm_y = abs(max(y_k, key=abs))
 
     middle_val = 0
     for i in range(dim):
-        middle_val += x_k[i] * 1.0 / y_k[i]
+        middle_val += x_k[i] / y_k[i]
 
     middle_val /= dim
     lam_k = sigma + middle_val
 
     x_k = [elem / norm_y for elem in y_k]
 
+    print(lam_k_1)
+    print(lam_k)
+    
+
     if abs(lam_k - lam_k_1) < eps:
         break
     else:
         lam_k_1 = lam_k
         count += 1
+    if count > 1000:
+        break
 
+x_k = [round(x, 4) for x in x_k]
 print(x_k)
-print(lam_k)
+print(round(lam_k, 4))
 print(count)
