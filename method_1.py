@@ -3,6 +3,8 @@ import numpy
 eps = 1E-5
 N = 1000
 
+
+
 # matr = [[-3., 4., -2.], [1., 0., 1.], [6., -6., 5.]]
 # matr = numpy.array(matr)
 # dim = 3
