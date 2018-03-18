@@ -1,6 +1,9 @@
+#method NewTon
+import numpy
+
 x0 = [1.5, 0.1]
-eps1 = 0.25
-eps2 = 0.5
+eps1 = 0.05
+eps2 = 0.25
 M = 100
 
 def nabla(x):
@@ -33,10 +36,13 @@ def find_tk(x):
     tk = (interval[0] + interval[1]) / 2
     return tk
 
-
 count = 0
 xk = x0
 str1 = ''
+Gesse = numpy.array([[2, -1], [-1, 16]])
+inverse = numpy.linalg.inv(Gesse)
+det = numpy.linalg.det(inverse)
+
 flag_pred = False
 while True:
     res_nabla = nabla(xk)
@@ -49,13 +55,30 @@ while True:
     if count >= M:
         str1 = 'count >= M'
         break
+
+    flag = True
+    sobstv = numpy.linalg.eig(inverse)
+    for i in range(len(sobstv[0])):
+        if sobstv[0][i] < 0:
+            flag = False
     
-    tk = find_tk(xk)
-
+    dk = []
     xk_1 = []
-    xk_1.append(xk[0] - tk * res_nabla[0])
-    xk_1.append(xk[1] - tk * res_nabla[1])
-
+    if flag:
+        for i in range(len(Gesse)):
+            temp = 0
+            for j in range(len(Gesse)):
+                temp += -1 * inverse[i][j] * res_nabla[j]
+            dk.append(temp)
+        
+        for i in range(len(Gesse)):
+            xk_1.append(xk[i] + dk[i])
+    else:
+        dk = [-item for item in res_nabla]
+        tk = find_tk(xk)
+        for i in range(len(Gesse)):
+            xk_1.append(xk[i] + tk * dk[i])
+    
     temp = []
     for i in range(len(xk)):
         temp.append(xk_1[i] - xk[i])
@@ -63,7 +86,7 @@ while True:
     norma_xk_xk_1 = abs(max(temp, key=abs))
 
     if (norma_xk_xk_1 < eps2) and (abs(f(xk_1) - f(xk)) < eps2) and flag_pred:
-        str1 = '3 excaption'
+        str1 = '3 exception'
         break
     elif (norma_xk_xk_1 < eps2) and (abs(f(xk_1) - f(xk)) < eps2):
         flag_pred = True
@@ -72,8 +95,7 @@ while True:
     else:
         count += 1
         xk = xk_1
-count += 1
 
-print('Ответ: ', xk_1)
-print('Количество итераций', count)
+print(xk)
 print(str1)
+print(count)
