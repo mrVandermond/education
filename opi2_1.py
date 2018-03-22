@@ -2,8 +2,8 @@
 import numpy
 
 x0 = [1.5, 0.1]
-eps1 = 0.05
-eps2 = 0.25
+eps1 = 0.005
+eps2 = 0.025
 M = 100
 
 def nabla(x):
@@ -99,4 +99,4 @@ while True:
 count += 1
 print(xk)
 print(str1)
-print(count)
+print('Количество итераций', count)

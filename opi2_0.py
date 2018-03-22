@@ -74,6 +74,6 @@ while True:
         xk = xk_1
 count += 1
 
-print('Ответ: ', xk_1)
+print('Ответ: ', xk)
 print('Количество итераций', count)
 print(str1)
