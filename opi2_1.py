@@ -2,8 +2,8 @@
 import numpy
 
 x0 = [1.5, 0.1]
-eps1 = 0.005
-eps2 = 0.025
+eps1 = 0.05
+eps2 = 0.25
 M = 100
 
 def nabla(x):
@@ -21,8 +21,8 @@ def fi(x, t):
 
 def find_tk(x):
     interval = [-5, 5]
-    eps = 1E-3
-    delta = 1E-4
+    eps = 1E-5
+    delta = 1E-6
     while abs(interval[0] - interval[1]) >= eps:
         mid = (interval[0] + interval[1]) / 2
         x1 = fi(x, mid - delta)
