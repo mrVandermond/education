@@ -2,8 +2,8 @@
 import numpy
 
 x0 = [1.5, 0.1]
-eps1 = 0.1
-eps2 = 0.15
+eps1 = 0.25
+eps2 = 0.5
 M = 100
 
 def nabla(x):
@@ -86,6 +86,7 @@ while True:
 
     norma_xk_xk_1 = abs(max(temp, key=abs))
 
+    print(xk)
     if (norma_xk_xk_1 < eps2) and (abs(f(xk1) - f(xk)) < eps2) and flag_pred:
         str1 = '3 exception'
         break
@@ -102,7 +103,6 @@ while True:
         xk_1 = xk[:]
         xk = xk1[:]
 
-count += 1
 print(xk1)
 print(str1)
 print('Количество итераций', count)    
