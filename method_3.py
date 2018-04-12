@@ -1,4 +1,4 @@
-import random
+import random, math
 
 
 ###Примеры###
@@ -12,6 +12,17 @@ def system(x):
 h = 0.01
 start = 0
 end = 1
+
+# def system(x):
+#     res = []
+#     res.append( x[1] )
+#     res.append( x[1] + 2 * x[0] )
+#     return res
+
+
+# h = 0.01
+# start = 0
+# end = 1
 
 fname = open('outputtest.txt', 'r+')
 fname.truncate()
@@ -70,19 +81,23 @@ while True:
     if count  < 2:
         nu = random.random()
         nu_r.append(nu)
-        x0 = [nu, 0]
+        x0 = [nu, -1]
+        # x0 = [nu, 1]
         result = RungeCutta(x0, start, end)
         results.append(result)
 
         print(result)
     else:
-        nu = nu_r[count - 1] - ( ((nu_r[count - 1] - nu_r[count - 2]) * (results[count - 1][0] - 1)) / (results[count - 1][0] - results[count - 2][0]) )
+        nu = nu_r[count - 1] - ( ((nu_r[count - 1] - nu_r[count - 2]) * (results[count - 1][0] - (2 * math.exp(-1) + 2))) / (results[count - 1][0] - results[count - 2][0]) )
+        # nu = nu_r[count - 1] - ( ((nu_r[count - 1] - nu_r[count - 2]) * (results[count - 1][0] - (math.exp(-1) + math.exp(2)))) / (results[count - 1][0] - results[count - 2][0]) )
         nu_r.append(nu)
-        x0 = [nu, 0]
+        x0 = [nu, -1]
+        # x0 = [nu, 1]
         result = RungeCutta(x0, start, end)
         results.append(result)
 
         print(result)
-        if abs(result[0] - 1) < eps:
+        if abs(result[0] - (2 * math.exp(-1) + 2)) < eps:
+        # if abs(result[0] - (math.exp(-1) + math.exp(2))) < eps:
             break
     count += 1
