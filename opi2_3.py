@@ -102,7 +102,6 @@ while True:
         xk_1 = xk[:]
         xk = xk1[:]
 
-count += 1
 print(xk1)
 print(str1)
 print('Количество итераций', count)    

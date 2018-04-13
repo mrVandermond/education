@@ -92,7 +92,6 @@ while True:
         count += 1
         xk = xk_1
 
-count += 1
 print(xk)
 print(str1)
 print('Количество итераций', count)
