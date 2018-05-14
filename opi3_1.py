@@ -1,13 +1,13 @@
 ####Method penalty (a)#####
 
-x0 = [0, 0]
+x0 = [0.3, 0.2]
 r0 = 1
-c = 1.1
+c = 1.5
 eps = 1E-3
 k = 0
 
 ###for method###
-eps1 = 0.005
+eps1 = 1E-4
 eps2 = 1E-10
 M = 1000
 

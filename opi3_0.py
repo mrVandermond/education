@@ -2,8 +2,8 @@
 x0 = [0.5, 0.5]
 r0 = 1
 c = 1.1
-lam = 0.2
-eps = 1E-3
+lam = 0
+eps = 0.01
 k = 0
 
 ###for method###
@@ -88,6 +88,10 @@ def findX(x, r, lam):
 
 while True:
     xk = findX(x0,r0, lam)
+    print('lam = ', lam)
+    print('x = ', xk)
+    print('r0 = ', r0)
+    print(P(xk, r0))
     if abs(P(xk, r0)) <= eps:
         break
     else:

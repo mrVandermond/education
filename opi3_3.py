@@ -1,9 +1,9 @@
 ####Method Larg (b)####
-x0 = [0, 0.5]
+x0 = [0.45, 0.001]
 r0 = 1
 c = 1.1
-lam = 1.5
-eps = 1E-3
+lam = -0.4
+eps = 0.01
 k = 0
 
 ###for method###
