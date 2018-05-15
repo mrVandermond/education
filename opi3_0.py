@@ -1,8 +1,8 @@
 ####Method Larg (a)####
-x0 = [0.5, 0.5]
+x0 = [0.35, 0.25]
 r0 = 1
 c = 1.1
-lam = 0
+lam = -0.4
 eps = 0.01
 k = 0
 
@@ -18,7 +18,7 @@ def L(x, r, lam):
     return f(x) + lam * (2 * x[0] + 3 * x[1] - 1) + (r / 2) * (2 * x[0] + 3 * x[1] - 1) ** 2
 
 def P(x, r):
-    return (r / 2) * (2 * x[0] + 3 * x[1] - 1) ** 2
+    return lam * (2 * x[0] + 3 * x[1] - 1) + (r / 2) * (2 * x[0] + 3 * x[1] - 1) ** 2
 
 ###### Method minimization #####
 def nabla(x, r, lam):
@@ -91,7 +91,7 @@ while True:
     print('lam = ', lam)
     print('x = ', xk)
     print('r0 = ', r0)
-    print(P(xk, r0))
+    print('P = ', P(xk, r0))
     if abs(P(xk, r0)) <= eps:
         break
     else:

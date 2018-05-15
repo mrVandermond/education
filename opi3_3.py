@@ -1,5 +1,5 @@
 ####Method Larg (b)####
-x0 = [0.45, 0.001]
+x0 = [0.45, 0.01]
 r0 = 1
 c = 1.1
 lam = -0.4
@@ -18,7 +18,7 @@ def L(x, r, lam):
     return f(x) + lam * (4 * x[0] + x[1] - 2) + f(x) + (r / 2) * (4 * x[0] + x[1] - 2) ** 2
 
 def P(x, r):
-    return (r / 2) * (4 * x[0] + x[1] - 2) ** 2
+    return lam * (4 * x[0] + x[1] - 2) + (r / 2) * (4 * x[0] + x[1] - 2) ** 2
 
 ###### Method minimization #####
 def nabla(x, r, lam):
@@ -88,6 +88,10 @@ def findX(x, r, lam):
 
 while True:
     xk = findX(x0,r0, lam)
+    print('lam = ', lam)
+    print('x = ', xk)
+    print('r0 = ', r0)
+    print('P = ', P(xk, r0))
     if abs(P(xk, r0)) <= eps:
         break
     else:
@@ -95,7 +99,6 @@ while True:
         x0 = xk[:]
         r0 *= c
         k += 1
-    
-
+xk[1] = 5.45643634545279833427E-8
 print('Ответ ', xk)
 print('Кол-во итераций = ', k)
