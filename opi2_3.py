@@ -13,7 +13,7 @@ def nabla(x):
     return res
 
 def f(x):
-    return x[0] ** 2 + 8 * x[1] ** 2 - x[0] * x[1] + x[0]
+    return -2 * x[0] ** 2 + 8 * x[1] ** 2 - x[0] * x[1] + x[0]
 
 def fi(x, t, d):
     return (x[0] + t * d[0]) ** 2 + 8 * (x[1] + t * d[1]) ** 2 - (x[0] + t * d[0]) * (x[1] + t * d[1]) + (x[0] + t * d[0])

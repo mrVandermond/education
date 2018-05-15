@@ -14,18 +14,18 @@ import math
 #     return res
 
 ######EXAMPLE02#######
-h = 0.1
-t = 0
-end = 5
-xk = [-0.75, 1.25]
+# h = 0.1
+# t = 0
+# end = 5
+# xk = [-0.75, 1.25]
 
-fname = open('output2.txt', 'r+')
-fname.truncate()
-def f(x):
-    res = []
-    res.append( (x[0] ** 2 - x[1] ** 2 + 1) / (2 * x[1]) )
-    res.append( x[0] + x[1] )
-    return res
+# fname = open('output2.txt', 'r+')
+# fname.truncate()
+# def f(x):
+#     res = []
+#     res.append( (x[0] ** 2 - x[1] ** 2 + 1) / (2 * x[1]) )
+#     res.append( x[0] + x[1] )
+#     return res
 
 ######EXAMPLE03#######
 # h = 0.025
@@ -42,23 +42,38 @@ def f(x):
 #     res.append( x[0] * x[2] )
 #     return res
 
+
+######EXAMPLE04#######
+h = 0.1
+t = 0
+end = 3
+xk = [1, 0]
+
+fname = open('output3.txt', 'r+')
+fname.truncate()
+def f(x, t):
+    res = []
+    res.append( 2 * x[0] - 3 * x[1] )
+    res.append( x[0] - 2 * x[1] + 2 * math.sin(t) )
+    return res
+
 while t < end:
-    n1k = f( xk )
+    n1k = f( xk , t)
     
     temp = []
     for i in range(len(xk)):
         temp.append( xk[i] + (h * n1k[i]) / 4 )
-    n2k = f(temp)
+    n2k = f(temp, t)
     
     temp = []
     for i in range(len(xk)):
         temp.append( xk[i] + (h * n2k[i]) / 2 )
-    n3k = f(temp)
+    n3k = f(temp, t)
     
     temp = []
     for i in range(len(xk)):
         temp.append( xk[i] + h * n1k[i] - 2 * h * n2k[i] + 2 * h * n3k[i] )
-    n4k = f(temp)
+    n4k = f(temp, t)
 
     delta_xk = []
     for i in range(len(xk)):
